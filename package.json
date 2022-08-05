@@ -8,6 +8,7 @@
     "build": "tsc",
     "start": "node dist/src/server.js",
     "test": "dotenv -e .env.test prisma migrate dev && cross-env NODE_OPTIONS=--experimental-vm-modules dotenv -e .env.test jest -i",
+    "dev:test": "dotenv -e .env.test nodemon src/server.ts",
     "test:unit": "dotenv -e .env.test cross-env NODE_OPTIONS=--experimental-vm-modules jest -- -i --coverage --testPathPattern=tests/unit",
     "dev": "nodemon src/server.ts"
   },

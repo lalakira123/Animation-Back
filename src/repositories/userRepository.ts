@@ -22,9 +22,14 @@ async function createUser(user: CreateDataUser){
   });
 }
 
+async function deleteAllUser(){
+  await prisma.user.deleteMany();
+}
+
 const userRepository = {
   findUserByEmail,
-  createUser
+  createUser,
+  deleteAllUser
 }
 
 export default userRepository;
