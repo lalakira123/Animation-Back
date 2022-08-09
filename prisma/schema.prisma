@@ -17,5 +17,92 @@ model User {
   email     String @unique
   imageUrl  String
 
+  comment   Comment[]
+  favorite  Favorite[]
+
   @@map("users")
+}
+
+model Category {
+  id             Int @id @default(autoincrement())
+  name           String @unique
+
+  categorySerie  CategorySerie[]
+
+  @@map("categories")
+}
+
+model Serie {
+  id             Int @id @default(autoincrement())
+  name           String @unique
+  description    String 
+  imageUrl       String
+  bigImageUrl    String
+  bannerUrl      String
+
+  categorySerie  CategorySerie[]
+  season         Season[]
+  favorite       Favorite[]
+
+  @@map("series")
+}
+
+model CategorySerie {
+  id          Int @id @default(autoincrement())
+  categoryId  Int
+  serieId     Int 
+
+  category    Category @relation(fields: [categoryId], references: [id])
+  serie       Serie @relation(fields: [serieId], references: [id])
+
+  @@map("categoriesSeries")
+}
+
+model Season {
+  id       Int @id @default(autoincrement())
+  number   Int
+  serieId  Int
+
+  serie    Serie @relation(fields: [serieId], references: [id])
+
+  episode  Episode[]
+
+  @@map("seasons")
+}
+
+model Episode {
+  id        Int @id @default(autoincrement())
+  number    Int
+  seasonId  Int
+  views     Int
+  name      String
+
+  season    Season @relation(fields: [seasonId], references: [id])
+
+  comment   Comment[]
+
+  @@map("episodes")
+}
+
+model Comment {
+  id Int @id @default(autoincrement())
+  comment String
+  userId Int
+  episodeId Int
+
+  user User @relation(fields: [userId], references: [id])
+  episode Episode @relation(fields: [episodeId], references: [id])
+
+  @@map("comments")
+}
+
+model Favorite {
+  id       Int @id @default(autoincrement())
+  serieId  Int
+  userId   Int
+
+  serie    Serie @relation(fields: [serieId], references: [id])
+  user     User @relation(fields: [userId], references: [id])
+
+  @@map("favorites")
 }
