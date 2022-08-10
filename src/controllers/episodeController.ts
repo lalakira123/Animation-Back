@@ -9,3 +9,11 @@ export async function getById(req: Request, res: Response){
 
   res.status(200).send(episode);
 }
+
+export async function getNextEpisodeId(req: Request, res: Response){
+  const idEpisode: number = Number(req.params.id);
+
+  const nextAndPrevious = await episodeService.getNextEpisodeId(idEpisode);
+
+  res.status(200).send(nextAndPrevious);
+}
