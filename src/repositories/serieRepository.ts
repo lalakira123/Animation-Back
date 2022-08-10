@@ -1,4 +1,3 @@
-import { raw } from "@prisma/client/runtime/index.js";
 import { prisma } from "../config/db.js";
 
 async function getRandom(){
@@ -8,8 +7,31 @@ async function getRandom(){
   return serie;
 }
 
+async function getById(id: number){
+  const serie = await prisma.serie.findFirst({
+    select: {
+      imageUrl: true,
+      description: true,
+      name: true,
+      season: {
+        select: {
+          number: true,
+          episode: {
+            select: {
+              name: true,
+              number: true
+            }
+          }
+        }
+      }
+    }
+  });
+  return serie;
+}
+
 const serieRepository = {
-  getRandom
+  getRandom,
+  getById
 }
 
 export default serieRepository;
