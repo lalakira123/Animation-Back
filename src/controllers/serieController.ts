@@ -9,9 +9,9 @@ export async function getRandom(req: Request, res: Response){
 }
 
 export async function getById(req: Request, res: Response){
-  const id: number = Number(req.params);
+  const serieId = Number(req.params.id);
 
-  const serie = await serieService.getById(id);
+  const serie = await serieService.getById(serieId);
 
   res.status(200).send(serie);
 }

@@ -9,6 +9,9 @@ async function getRandom(){
 
 async function getById(id: number){
   const serie = await prisma.serie.findFirst({
+    where: {
+      id
+    },
     select: {
       imageUrl: true,
       description: true,
@@ -18,6 +21,7 @@ async function getById(id: number){
           number: true,
           episode: {
             select: {
+              id: true,
               name: true,
               number: true
             }
