@@ -18,3 +18,12 @@ export async function getFavoriteSerie(req: Request, res: Response){
 
   res.status(200).send(series);
 }
+
+export async function checkFavorite(req: Request, res: Response){
+  const userId: number = res.locals.userId;
+  const serieId: number = Number(req.params.id);
+
+  const check = await favoriteService.checkFavorite(userId, serieId);
+
+  res.status(200).send(check);
+}
