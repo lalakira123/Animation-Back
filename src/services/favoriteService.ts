@@ -21,8 +21,17 @@ async function favoriteSerie(userId: number, serieId: number){
   }
 }
 
+async function listFavoritesSerie(userId: number){
+  const existUser = await userRepository.findUserById(userId);
+  if(!existUser) throw notFound('Usuário não existe!');
+
+  const favoriteSeries = await favoriteRepository.listFavoritesSeriesByUserId(userId);
+  return favoriteSeries;
+}
+
 const favoriteService = {
-  favoriteSerie
+  favoriteSerie,
+  listFavoritesSerie
 }
 
 export default favoriteService;

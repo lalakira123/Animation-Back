@@ -9,6 +9,23 @@ async function findByUserIdAndSerieId(userId: number, serieId: number){
   });
 }
 
+async function listFavoritesSeriesByUserId(userId: number){
+  return await prisma.favorite.findMany({
+    where: {
+      userId
+    },
+    select: {
+      serie: {
+        select: {
+          id: true,
+          bigImageUrl: true,
+          imageUrl: true
+        }
+      }
+    }
+  });
+}
+
 async function postFavorite(userId: number, serieId: number){
   await prisma.favorite.create({
     data: {
@@ -28,6 +45,7 @@ async function unpostFavorite(id: number){
 
 const favoriteRepository = {
   findByUserIdAndSerieId,
+  listFavoritesSeriesByUserId,
   postFavorite,
   unpostFavorite
 }

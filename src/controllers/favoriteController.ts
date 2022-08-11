@@ -10,3 +10,11 @@ export async function favoriteSerie(req: Request, res: Response){
 
   res.status(200).send('Favoritar/Desfavoritar foi executado!');
 }
+
+export async function getFavoriteSerie(req: Request, res: Response){
+  const userId: number = res.locals.userId;
+  
+  const series = await favoriteService.listFavoritesSerie(userId);
+
+  res.status(200).send(series);
+}
