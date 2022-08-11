@@ -29,9 +29,27 @@ async function listCommentsOfEpisode(episodeId: number){
   });
 }
 
+async function findCommentById(commentId: number){
+  return await prisma.comment.findFirst({
+    where: {
+      id: commentId
+    }
+  });
+}
+
+async function deleteCommentById(commentId: number){
+  await prisma.comment.delete({
+    where: {
+      id: commentId
+    }
+  });
+}
+
 const commentRepository = {
   createComment,
-  listCommentsOfEpisode
+  listCommentsOfEpisode,
+  findCommentById,
+  deleteCommentById
 }
 
 export default commentRepository;

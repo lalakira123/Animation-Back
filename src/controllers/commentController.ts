@@ -19,3 +19,12 @@ export async function listComments(req: Request, res: Response){
 
   res.status(200).send(comments);
 }
+
+export async function deleteComment(req: Request, res: Response){
+  const commentId: number = Number(req.params.id);
+  const userId: number = res.locals.userId;
+
+  await commentService.deleteComment(userId, commentId);
+
+  res.status(200).send('Comentário deletado com sucesso!');
+}

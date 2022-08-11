@@ -1,6 +1,6 @@
 import { Comment } from "@prisma/client";
 
-import { notFound } from "../middlewares/errorHandlerMiddleware.js";
+import { notFound, unauthorized } from "../middlewares/errorHandlerMiddleware.js";
 import episodeRepository from "../repositories/episodeRepository.js";
 import userRepository from "../repositories/userRepository.js";
 import commentRepository from "../repositories/commentRepository.js";
@@ -26,9 +26,22 @@ async function listComments(episodeId: number){
   return await commentRepository.listCommentsOfEpisode(episodeId);
 }
 
+async function deleteComment(userId: number, commentId: number){
+  const existUser = await userRepository.findUserById(userId);
+  if(!existUser) throw notFound('Usuário não existe!');
+
+  const existComment = await commentRepository.findCommentById(commentId);
+  if(!existComment) throw notFound('Comentário não existe!');
+
+  if(userId !== existUser.id) throw unauthorized('Este comentário não pertence ao usuário');
+
+  await commentRepository.deleteCommentById(commentId);
+}
+
 const commentService = {
   createComment,
-  listComments
+  listComments,
+  deleteComment
 }
 
 export default commentService;
