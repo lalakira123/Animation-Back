@@ -8,6 +8,6 @@ const episodeRouter = Router();
 
 episodeRouter.use(validateToken);
 episodeRouter.get('/episode/:id', getById);
-episodeRouter.get('/episode/nextAndPrevious/:id', getNextEpisodeId);
+episodeRouter.get('/episode/next-previous/:id', getNextEpisodeId);
 
 export default episodeRouter;
