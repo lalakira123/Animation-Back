@@ -20,6 +20,9 @@ async function getById(id: number){
         select: {
           number: true,
           episode: {
+            orderBy: {
+              number: 'asc'
+            },
             select: {
               id: true,
               name: true,
@@ -27,9 +30,10 @@ async function getById(id: number){
             }
           }
         }
+        }
       }
     }
-  });
+  );
   return serie;
 }
 

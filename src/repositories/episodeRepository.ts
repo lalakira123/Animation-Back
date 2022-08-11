@@ -47,10 +47,22 @@ async function getEpisodeIdBySeasonIdAndNumber(seasonId: number, number: number)
   return nextEpisode;
 }
 
+async function updateView(id: number, newView: number){
+  await prisma.episode.update({
+    where: {
+      id
+    },
+    data: {
+      views: newView
+    }
+  });
+}
+
 const episodeRepository = {
   getById,
   getOnlyEpisodeById,
-  getEpisodeIdBySeasonIdAndNumber
+  getEpisodeIdBySeasonIdAndNumber,
+  updateView
 }
 
 export default episodeRepository;

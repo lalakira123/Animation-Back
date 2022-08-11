@@ -6,6 +6,8 @@ async function getById(id: number){
   const episode = await episodeRepository.getById(id);
   if(!episode) throw notFound('Episódio não existe!');
 
+  await episodeRepository.updateView(id, episode.views + 1);
+
   return episode;
 }
 
