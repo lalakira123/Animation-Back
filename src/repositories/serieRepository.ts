@@ -8,6 +8,14 @@ async function getRandom(){
 }
 
 async function getById(id: number){
+  return await prisma.serie.findFirst({
+    where: {
+      id
+    }
+  });
+}
+
+async function getSerieSeasonAndEpisodeById(id: number){
   const serie = await prisma.serie.findFirst({
     where: {
       id
@@ -39,7 +47,8 @@ async function getById(id: number){
 
 const serieRepository = {
   getRandom,
-  getById
+  getById,
+  getSerieSeasonAndEpisodeById
 }
 
 export default serieRepository;

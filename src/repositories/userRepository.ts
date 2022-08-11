@@ -10,6 +10,14 @@ async function findUserByEmail(email: string){
   });
 }
 
+async function findUserById(id: number){
+  return await prisma.user.findFirst({
+    where: {
+      id
+    }
+  });
+}
+
 async function createUser(user: CreateDataUser){
   const { name, password, email, imageUrl } = user;
   await prisma.user.create({
@@ -28,6 +36,7 @@ async function deleteAllUser(){
 
 const userRepository = {
   findUserByEmail,
+  findUserById,
   createUser,
   deleteAllUser
 }

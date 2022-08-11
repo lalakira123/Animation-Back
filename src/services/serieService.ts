@@ -5,8 +5,8 @@ async function getRandom(){
   return await serieRepository.getRandom();
 }
 
-async function getById(id: number){
-  const serie = await serieRepository.getById(id);
+async function getSerieSeasonAndEpisodeById(id: number){
+  const serie = await serieRepository.getSerieSeasonAndEpisodeById(id);
   if(!serie) throw notFound('Série não existe!');
 
   return serie;
@@ -14,7 +14,7 @@ async function getById(id: number){
 
 const serieService = {
   getRandom,
-  getById
+  getSerieSeasonAndEpisodeById
 }
 
 export default serieService;
