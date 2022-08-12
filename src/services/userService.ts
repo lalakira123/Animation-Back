@@ -36,7 +36,8 @@ async function loginUser(user: LoginUserSchema){
   const objectLogin = {
     token: generateToken({userId: existUser.id}),
     name: existUser.name,
-    imageUrl: existUser.imageUrl
+    imageUrl: existUser.imageUrl,
+    userId: existUser.id
   }
 
   return objectLogin;
