@@ -12,6 +12,9 @@
     "test:unit": "dotenv -e .env.test cross-env NODE_OPTIONS=--experimental-vm-modules jest -- -i --coverage --testPathPattern=tests/unit",
     "dev": "nodemon src/server.ts"
   },
+  "prisma": {
+    "seed": "ts-node prisma/seed.ts"
+  },
   "keywords": [],
   "author": "",
   "license": "ISC",
